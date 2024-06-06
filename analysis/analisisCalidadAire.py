@@ -12,9 +12,23 @@ def construirDataFrameCalidadAire():
     #construyo el dataframe
 
     calidadAireDF=pd.DataFrame(datosCalidadAire, columns=['comuna', 'poblacionTotal', 'muestra', 'ICA', 'fecha', 'nombre', 'id'])
+    
+    # Limpiando DF
+    
+    
+    # 1. Limpiamdo Reemplazando valores
+    print(calidadAireDF)
+    
+    #calidadAireDF.replace('-', pd.NA, inplace=True)
+    #calidadAireDF.replace('sin', pd.NA, inplace=True)
+
+    # 2. Limpiando Eliminando valores
+    calidadAireDF.replace('sin', pd.NA, inplace=True)
+    calidadAireDF.dropna(inplace=True)
 
     #probando
+    print("\n")
     print(calidadAireDF)
-    crearTablaHTML(calidadAireDF,"calidadAire")
+    #crearTablaHTML(calidadAireDF,"calidadAire")
 
 construirDataFrameCalidadAire()
