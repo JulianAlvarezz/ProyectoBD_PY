@@ -23,7 +23,7 @@ def construirDataFrameCalidadAire():
 
     #probando
     #print("\n")
-    print(calidadAireDF)
+    #print(calidadAireDF)
     #crearTablaHTML(calidadAireDF,"calidadAire")
 
     # Filtrando datos según el valor de ICA
@@ -57,6 +57,17 @@ def construirDataFrameCalidadAire():
     sumaPositivo = filtroICAPositivo.groupby('comuna')['ICA'].sum()
     sumaModerado = filtroICAModerado.groupby('comuna')['ICA'].sum()
     sumaPeligroso = filtroICAPeligroso.groupby('comuna')['ICA'].sum()
+    
+    
+    # Creando DataFrames para las sumas
+    sumaPositivoDF = sumaPositivo.reset_index().rename(columns={'ICA': 'Suma ICA Positivo'})
+    sumaModeradoDF = sumaModerado.reset_index().rename(columns={'ICA': 'Suma ICA Moderado'})
+    sumaPeligrosoDF = sumaPeligroso.reset_index().rename(columns={'ICA': 'Suma ICA Peligroso'})
+
+    # Creando tablas HTML
+    crearTablaHTML(sumaPositivoDF, "sumaICA_Positivo")
+    crearTablaHTML(sumaModeradoDF, "sumaICA_Moderado")
+    crearTablaHTML(sumaPeligrosoDF, "sumaICA_Peligroso")
 
     # Promedio
     promedioPositivo = sumaPositivo / cuentaPositivo
@@ -67,25 +78,12 @@ def construirDataFrameCalidadAire():
     print("Promedio ICA Moderado por Comuna: ", promedioModerado)
     print("Promedio ICA Peligroso por Comuna: ", promedioPeligroso)
     
-    promedioPositivoDF = promedioPositivo.reset_index().rename(columns={'ICA':'Suma ICA Positivo'})
-    promedioModeradoDF = promedioModerado.reset_index().rename(columns={'ICA':'Suma ICA Moderado'})
-    promedioPeligrosoDF = promedioPeligroso.reset_index().rename(columns={'ICA':'Suma ICA Peligroso'})
+    promedioPositivoDF = promedioPositivo.reset_index().rename(columns={'ICA':'Promedio ICA Positivo'})
+    promedioModeradoDF = promedioModerado.reset_index().rename(columns={'ICA':'Promedio ICA Moderado'})
+    promedioPeligrosoDF = promedioPeligroso.reset_index().rename(columns={'ICA':'Promedio ICA Peligroso'})
     
     crearTablaHTML(promedioPositivoDF, "promedioICA_Positivo")
     crearTablaHTML(promedioModeradoDF, "promedioICA_Moderado")
     crearTablaHTML(promedioPeligrosoDF, "promedioICA_Peligroso")
-
-    # Creando DataFrames para las sumas
-    #df_sumaPositivo = sumaPositivo.reset_index().rename(columns={'ICA': 'Suma ICA Positivo'})
-    #df_sumaModerado = sumaModerado.reset_index().rename(columns={'ICA': 'Suma ICA Moderado'})
-    #df_sumaPeligroso = sumaPeligroso.reset_index().rename(columns={'ICA': 'Suma ICA Peligroso'})
-
-    # Creando tablas HTML
-    #crearTablaHTML(calidadAireDF,"calidadAire")
-    #crearTablaHTML(df_sumaPositivo, "sumaICA_Positivo")
-    #crearTablaHTML(df_sumaModerado, "sumaICA_Moderado")
-    #crearTablaHTML(df_sumaPeligroso, "sumaICA_Peligroso")
-
-
 
 construirDataFrameCalidadAire()
